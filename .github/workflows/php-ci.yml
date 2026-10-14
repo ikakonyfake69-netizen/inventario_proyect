@@ -1,0 +1,35 @@
+name: pruebas automatizadas - inventario
+
+on: 
+  push:
+  pull_request:
+    branches:
+    - main
+
+
+permissions :
+  contents: read
+
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: descargar codigo
+      uses: actions/checkout@v4
+
+    - name: configurar php
+      uses: shivamathur/setup-php@v2
+      whith: 
+        php-version :'8.2'
+
+    - name: verificar sintaxis
+      run:
+        php -1 src/validaciones.php
+        php -1 tests/test_validaciones.php
+
+    - name: ejecutar pruebas
+      run: php tests/test_validaciones.php
+
+
